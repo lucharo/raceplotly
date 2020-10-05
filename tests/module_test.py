@@ -4,7 +4,7 @@ import pandas as pd
 from raceplotly.plots import barplot
 
 # load data
-data = pd.read_csv('https://github.com/lc5415/raceplotly/blob/main/example/FAOSTAT_data.csv')
+data = pd.read_csv('https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv')
 
 # instantiate barplot
 bar_race = barplot(data, item_column='Item', value_column='Value', time_column='Year')

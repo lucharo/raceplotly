@@ -24,7 +24,7 @@ The `barplot` object contains one main method:
 import pandas
 from raceploty.plots import barplot
 
-FAO = pd.read_csv('https://github.com/lc5415/raceplotly/blob/main/example/FAOSTAT_data.csv')
+FAO = pd.read_csv('https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv')
 
 my_raceplot = barplot(data,  item_column='Item', value_column='Value', time_column='Year')
 

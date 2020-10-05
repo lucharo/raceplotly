@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="raceplotly",
-    version="0.1.1",
+    version="0.1.2",
     author="Luis Chaves",
     author_email="lc5415@ic.ac.uk",
     description="Tiny package to make 'race' barplots using plotly",
@@ -13,6 +13,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/lc5415/raceplotly",
     packages=setuptools.find_packages(),
+    install_requires=[
+        "pandas",
+        "plotly",
+        ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
