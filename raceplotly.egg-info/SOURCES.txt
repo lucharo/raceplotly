@@ -1,8 +1,0 @@
-README.md
-setup.py
-raceplotly/__init__.py
-raceplotly/plots.py
-raceplotly.egg-info/PKG-INFO
-raceplotly.egg-info/SOURCES.txt
-raceplotly.egg-info/dependency_links.txt
-raceplotly.egg-info/top_level.txt
