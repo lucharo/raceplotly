@@ -1,9 +1,11 @@
-import setuptools
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+    
+    
+setup(
     name="raceplotly",
     version="0.1.1",
     author="Luis Chaves",
@@ -12,7 +14,11 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/lc5415/raceplotly",
-    install_requires=['pandas','plotly'],
+    packages=find_packages(),
+    install_requires=[
+        'pandas',
+        'plotly',
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
