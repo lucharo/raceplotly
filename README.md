@@ -1,3 +1,5 @@
+![Test Python package](https://github.com/lc5415/raceplotly/workflows/Test%20Python%20package/badge.svg)
+
 # Making race plots with Plotly!
 
 Bar race plots, barchart race plots or simply race plots are very common when evaluating rankings over time. Python plotting is not the most user friendly and whenever I've wanted to make race plots I have ended up with tonnes of code for what is a simple plot in the end. I wish to remove that headache for many users that simply want to make quick plot and then move on.
