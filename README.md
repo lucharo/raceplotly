@@ -38,8 +38,8 @@ The `barplot` object contains one main method:
 ### Example plot: Top 10 crops from 1961 to 2018
 
 ```python
-import pandas
-from raceploty.plots import barplot
+import pandas as pd
+from raceplotly.plots import barplot
 
 data = pd.read_csv('https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv')
 
