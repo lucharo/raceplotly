@@ -2,7 +2,20 @@
 
 # Making race plots with Plotly!
 
+## Motivation 
+
 Bar race plots, barchart race plots or simply race plots are very common when evaluating rankings over time. Python plotting is not the most user friendly and whenever I've wanted to make race plots I have ended up with tonnes of code for what is a simple plot in the end. I wish to remove that headache for many users that simply want to make quick plot and then move on.
+
+## Usage
+
+### Installation
+
+`raceplotly` can be installed from pip.The only dependencies are `pandas` and `plotly`.
+```sh
+pip install raceplotly
+```
+
+### Basic documentation
 
 The package only contains one module called `barplot`. This module takes the following arguments at initialisation:
 
@@ -16,17 +29,19 @@ The `barplot` object contains one main method:
 * `plot(title, orientation, item_label, value_label)`: 
 	* `title`: (type: string) Main title of the plot (static by default)
 	* `orientation`: (type: string -> 'horizontal' or 'vertical') whether bars grow upwards ('vertical') or rightwards ('horizontal')
+	* `initial_frame`: (type: numeric or string) Should either match one of the values from the `time_column` or be provided as `min` or `max`, in which case the initial frame would correspond to the minimum or maximum value of the `time_column`.
 	* `item_label`: (type: string) Title of the axis corresponding to the item values
 	* `value_label`: (type: string) Title of the axis corresponding to the value
+	* `frame_duration`: (type: int -> default 500) Frame and transition duration time in milliseconds
 
 
-## Example plot: Top 10 crops from 1961 to 2018
+### Example plot: Top 10 crops from 1961 to 2018
 
 ```python
 import pandas
 from raceploty.plots import barplot
 
-FAO = pd.read_csv('https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv')
+data = pd.read_csv('https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv')
 
 my_raceplot = barplot(data,  item_column='Item', value_column='Value', time_column='Year')
 
