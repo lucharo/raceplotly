@@ -1,6 +1,8 @@
 import plotly.graph_objects as go
 import pandas as pd
 from random import sample
+import numpy as np
+import datetime
 
 class barplot(object):
     '''
@@ -21,8 +23,9 @@ class barplot(object):
         self.title = ''
         self.fig = None
         self.orientation = None
+        self.date_format = None
 
-    def plot(self, title: str = None, orientation: str = 'horizontal', initial_frame = 'min', value_label: str = None, item_label: str = None, frame_duration: int = 500):
+    def plot(self, title: str = None, orientation: str = 'horizontal', initial_frame = 'min', value_label: str = None, item_label: str = None, time_label: str = 'Date: ', frame_duration: int = 500, date_format: str = None):
         '''
         By default the time variable is appended to the title string
 
@@ -31,7 +34,7 @@ class barplot(object):
         '''
 
         self.orientation = orientation # record last self.orientation used 
-        
+        self.date_format = date_format # record last date_format
         self.title = title
 
         #get colors
@@ -41,7 +44,7 @@ class barplot(object):
         self.__make_frame1(initial_frame)
 
         # define ui: adds Play,Pause buttons and defines empty slider
-        self.__define_ui()
+        self.__define_ui(time_label)
 
         # make frames, also updates sliders at each frame
         self.fig['frames'] = self.__make_frames(title, frame_duration)
@@ -73,15 +76,28 @@ class barplot(object):
 
         x, y = self.__check_orientation()
         frames = []
-        for year in range(self.df[self.time_column].min(), self.df[self.time_column].max()+1):
+        ## sorted date to iterate through them
+        dates = np.sort(self.df[self.time_column].unique())
+        for date in dates:
+            
+            # specified date string for plotly frame id and for printing in plot
+            if isinstance(date, np.datetime64):
+                date = pd.to_datetime(str(date)) 
+                try:
+                    date_str = date.strftime(format = self.date_format) if self.date_format is not None else str(date)
+                except:
+                    raise Exception("Something was wrong setting the date_format, please check the strftime (https://strftime.org/) documentation for date formatting and try again")
+            else: 
+                date_str = str(date)
+                    
             # filter out by year
-            snap_data = self.df[self.df['Year'] == year]
+            snap_data = self.df[self.df[self.time_column] == date]
 
             # get_top 10
-            snap_data = snap_data.sort_values('Value', ascending=False).iloc[:self.top_entries,:]
+            snap_data = snap_data.sort_values(self.value_column, ascending=False).iloc[:self.top_entries,:]
 
             # get top enttry at top of chart
-            snap_data = snap_data.sort_values('Value', ascending=True)
+            snap_data = snap_data.sort_values(self.value_column, ascending=True)
 
             # make frame
             frames.append(
@@ -93,6 +109,8 @@ class barplot(object):
                             marker_color=snap_data['color'],
                             cliponaxis=False,
                             hoverinfo='all',
+                            hovertemplate = '<extra></extra>', #annoying and obscure, see docs 
+                            ## (https://community.plotly.com/t/remove-trace-0-next-to-hover/33731)
                             textposition='outside',
                             texttemplate='%{x}<br>%{y:.4s}' if self.orientation == 'vertical' else '%{y}<br>%{x:.4s}',
                             textangle = 0,
@@ -123,17 +141,17 @@ class barplot(object):
                         bargap=0.15,
                         title= title
                     ),
-                    name = year
+                    name = date_str
                 )
             )
 
             slider_step = {"args": [
-                [year],
+                [date_str],
                 {"frame": {"duration": frame_duration, "redraw": False},
                  "mode": "immediate",
                  "transition": {"duration": frame_duration}}
             ],
-                           "label": year,
+                           "label": date_str,
                            "method": "animate"}
             self.sliders_dict["steps"].append(slider_step)
 
@@ -160,7 +178,7 @@ class barplot(object):
         frame1  = frame1.sort_values(self.value_column, ascending=False).iloc[:self.top_entries,:]
 
         # return in ascending order so that top bar corresponds to largest value  
-        frame1 = frame1.sort_values('Value', ascending=True) 
+        frame1 = frame1.sort_values(self.value_column, ascending=True) 
         
         x, y = self.__check_orientation()
 
@@ -220,7 +238,7 @@ class barplot(object):
 
         return x, y
 
-    def __define_ui(self):
+    def __define_ui(self, time_label: str = None):
         
         self.fig["layout"]["updatemenus"] = [
             {
@@ -257,7 +275,7 @@ class barplot(object):
             "xanchor": "left",
             "currentvalue": {
                 "font": {"size": 20},
-                "prefix": "Year:",
+                "prefix": time_label,
                 "visible": True,
                 "xanchor": "right"
             },
