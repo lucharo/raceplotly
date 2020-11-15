@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import pandas as pd
 from raceplotly.plots import barplot
 import pytest
@@ -21,4 +19,5 @@ def test_plot_vertical():
     bar_race.plot(title = 'Top 10 Crops from 1961 to 2018',
                   orientation='vertical',
                   item_label='Crops')
+    assert True
 
