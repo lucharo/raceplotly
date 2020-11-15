@@ -1,5 +1,5 @@
 ![Test Python package](https://github.com/lc5415/raceplotly/workflows/Test%20Python%20package/badge.svg)
-
+[![PyPI version](https://badge.fury.io/py/raceplotly.svg)](https://badge.fury.io/py/raceplotly)
 # Making race plots with Plotly!
 
 ## Motivation 
