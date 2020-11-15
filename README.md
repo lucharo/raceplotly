@@ -13,14 +13,18 @@ The package only contains one module called `barplot`. This module takes the fol
 * `top_entries`: (type: numeric) Number of top entries to display (e.g. 5 for top 5 for any given time period...)
 
 The `barplot` object contains one main method:
-* `plot(title, orientation, item_label, value_label)`: 
+* `plot(title, orientation, item_label, value_label, time_label, frame_duration, date_format)`: 
 	* `title`: (type: string) Main title of the plot (static by default)
 	* `orientation`: (type: string -> 'horizontal' or 'vertical') whether bars grow upwards ('vertical') or rightwards ('horizontal')
 	* `item_label`: (type: string) Title of the axis corresponding to the item values
 	* `value_label`: (type: string) Title of the axis corresponding to the value
-
+	* `time_label`: (type: string) Title for the time axis which appears in each frame next to the formmated date/time variable
+	* `frame_duration`: (type: int) Length of time each frame should be displayed for (in milliseconds).
+	* `date_format`: (type: str) Format for the displayed date/time, should be compatible with strftime format, [see strftime reference](https://strftime.org/).
 
 ## Example plot: Top 10 crops from 1961 to 2018
+
+See example notebooks under `example/`.
 
 ```python
 import pandas
