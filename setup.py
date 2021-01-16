@@ -13,6 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/lc5415/raceplotly",
     packages=setuptools.find_packages(),
+    setup_requires=["numpy"],
     install_requires=[
         "pandas",
         "numpy; python_version >= '3.7'",
