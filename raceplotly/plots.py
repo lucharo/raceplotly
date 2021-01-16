@@ -14,11 +14,12 @@ class barplot(object):
 
     '''
     
-    def __init__(self, df: pd.DataFrame = None, item_column: str = None, value_column: str = None , time_column: str = None , top_entries: int = 10):
+    def __init__(self, df: pd.DataFrame = None, item_column: str = None, value_column: str = None , time_column: str = None , item_color: str = None , top_entries: int = 10):
         self.df = df
         self.item_column = item_column
         self.value_column = value_column
         self.time_column = time_column
+        self.item_color = item_color
         self.top_entries = top_entries
         self.title = ''
         self.fig = None
@@ -289,5 +290,8 @@ class barplot(object):
         
 
     def __get_colors(self):
-        colors = {item: 'rgb({}, {}, {})'.format(*sample(range(256), 3)) for item in self.df[self.item_column].unique()}
-        self.df['color'] = self.df[self.item_column].map(colors)
+        if (self.item_color == None):
+            colors = {item: 'rgb({}, {}, {})'.format(*sample(range(256), 3)) for item in self.df[self.item_column].unique()}
+            self.df['color'] = self.df[self.item_column].map(colors)
+        else:
+            self.df=self.df.rename(columns={self.item_color: "color"})
