@@ -1,4 +1,5 @@
 import setuptools
+import sys
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -16,8 +17,7 @@ setuptools.setup(
     setup_requires=["numpy"],
     install_requires=[
         "pandas",
-        'numpy == 1.19.4; python_version < "3.7"',
-        'numpy; python_version >= "3.7"',
+        "numpy < 1.20" if sys.version_info < (3, 7) else "numpy",
         "plotly",
         ],
     classifiers=[
