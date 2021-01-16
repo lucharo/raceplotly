@@ -10,7 +10,7 @@ Bar race plots, barchart race plots or simply race plots are very common when ev
 
 ### Installation
 
-`raceplotly` can be installed from pip.The only dependencies are `pandas` and `plotly`.
+`raceplotly` can be installed from pip.The only dependencies are `pandas`, `numpy` and `plotly`.
 ```sh
 pip install raceplotly
 ```
