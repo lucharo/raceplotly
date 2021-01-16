@@ -13,10 +13,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/lc5415/raceplotly",
     packages=setuptools.find_packages(),
-    setup_requires=["numpy"],
     install_requires=[
         "pandas",
-        "numpy<1.20",
         "plotly",
         ],
     classifiers=[
@@ -24,5 +22,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.7',
 )
