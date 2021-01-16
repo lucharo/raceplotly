@@ -17,7 +17,7 @@ setuptools.setup(
     install_requires=[
         "pandas",
         "numpy; python_version >= '3.7'",
-        "numpy==1.19.4; python_version < '3.7'",
+        "numpy<=1.20; python_version < '3.7'",
         "plotly",
         ],
     classifiers=[
