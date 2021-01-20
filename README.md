@@ -23,7 +23,7 @@ The package only contains one module called `barplot`. This module takes the fol
 * `item_column`: (type: string) Name of column describing the items to be ranked (e.g. countries, corporations, names of people...)
 * `value_column`: (type: string) Name of column describing the value to be used for ranking (e.g. GDP, population, volume of sales...)
 * `time_column`: (type: string) Name of column describing the time variable. This must be a sequence (e.g. years, days). Support of Date format has not been tested yet.
-* `item_color`: (type: string) [OPTIONAL ATTRIBUTE] Name of column describing the color for different categories (e.g. colors = {'Category 1': 'rgba(0, 76, 109, 1)', 'Category 2': 'rgb(208, 210, 211)'}...) [DEFAULT = Random Color]
+* `item_color`: [OPTIONAL ATTRIBUTE] Dictionary containing Category:RGB_value where Category is key and RGB is value. (e.g. colors = {'Category 1': 'rgba(0, 76, 109, 1)', 'Category 2': 'rgb(208, 210, 211)'}...) [DEFAULT = Random Color]
 * `top_entries`: (type: numeric) [OPTIONAL ATTRIBUTE] Number of top entries to display (e.g. 5 for top 5 for any given time period...) [DEFAULT = 10]
 
 The `barplot` object contains one main method:
@@ -65,28 +65,24 @@ from raceplotly.plots import barplot
 
 data = pd.read_csv('https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv')
 
-# To add specific color to the categories, a new coloumn with rgb values for each category has to be created.
+# To add specific color to the categories, a new dictionary with rgb values for each category has to be created.
 # Assigning colors to the categories.
 colors = {'Sugar cane': 'rgba(0, 76, 109, 1)',
           'Potatoes': 'rgb(208, 210, 211)',
           'Wheat': 'rgb(208, 210, 211)',
           'Rice, paddy':'rgba(66, 114, 146, 1)',
           'Maize':'rgba(40, 95, 127, 1)',
-          'Sugar beet':'rgb(208, 210, 211)',
-          'Rice, paddy (rice milled equivalent)':'rgb(208, 210, 211)',
-          'Sweet potatoes':'rgb(208, 210, 211)',
           'Barley':'rgb(208, 210, 211)',
           'Cassava':'rgb(208, 210, 211)',
           'Soybeans':'rgb(208, 210, 211)',
           'Oil palm fruit':'rgb(208, 210, 211)',
           'Vegetables, fresh nes':'rgb(208, 210, 211)'}
 
-# Default color for cateogry is black when color is not specifed explicitly
+# Default color for category will be assigned randomly if not specified explicitly
 
-# Mapping the items with the color for the whole dataset.
-data['color'] = data['Item'].map(colors)
+my_raceplot = barplot(data,  item_column='Item', value_column='Value', time_column='Year', item_color=colors)
 
-my_raceplot = barplot(data,  item_column='Item', value_column='Value', time_column='Year', item_color='color')
+# In this case color for 'Rice, paddy (rice milled equivalent)', 'Sugar beet' and 'Sweet potatoes' will be randomly assingned
 
 my_raceplot.plot(item_label = 'Top 10 crops', value_label = 'Production quantity (tonnes)', time_label = 'Year: ', ## overwrites default `Date: `
                  frame_duration = 800)
