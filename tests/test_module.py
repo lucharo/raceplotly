@@ -39,7 +39,7 @@ def test_user_color_input():
 	# Default color for category will be assigned randomly if not specified explicitly
 
 	my_raceplot = barplot(data,  item_column='Item', value_column='Value', time_column='Year', item_color=colors)
-    
+
     # In this case color for 'Rice, paddy (rice milled equivalent)', 'Sugar beet' and 'Sweet potatoes' will be randomly assingned
 
 	my_raceplot.plot(item_label = 'Top 10 crops',
