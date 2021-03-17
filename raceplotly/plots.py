@@ -13,7 +13,7 @@ class barplot(object):
     * value_column: numerical value
 
     '''
-    
+
     def __init__(self, df: pd.DataFrame = None, item_column: str = None, value_column: str = None , time_column: str = None , item_color: str = None , top_entries: int = 10):
         self.df = df
         self.item_column = item_column
@@ -34,13 +34,13 @@ class barplot(object):
         vertical the value_column is the y_axis
         '''
 
-        self.orientation = orientation # record last self.orientation used 
+        self.orientation = orientation # record last self.orientation used
         self.date_format = date_format # record last date_format
         self.title = title
 
         #get colors
         self.__get_colors()
-        
+
         # make frame1, the one that appears before the animation playy
         self.__make_frame1(initial_frame)
 
@@ -52,19 +52,19 @@ class barplot(object):
 
         # update sliders in layout to sliders_dict with all the steps defined
         self.fig["layout"]["sliders"] = [self.sliders_dict]
-        
+
         if (item_label is not None) or (value_label is not None):
             if orientation == 'horizontal':
                 self.fig.update_xaxes(title_text= value_label,
                         visible = True, showticklabels= True)
-                self.fig.update_yaxes(title_text= item_label, 
+                self.fig.update_yaxes(title_text= item_label,
                         visible = True, showticklabels= False)
-            else: 
+            else:
                 self.fig.update_xaxes(title_text= item_label,
                         visible = True, showticklabels= False)
-                self.fig.update_yaxes(title_text= value_label, 
+                self.fig.update_yaxes(title_text= value_label,
                         visible = True, showticklabels= True)
-                
+
         self.fig.layout.updatemenus[0].buttons[0].args[1]['frame']['duration'] = frame_duration
         self.fig.layout.updatemenus[0].buttons[0].args[1]['transition']['duration'] = frame_duration
 
@@ -80,17 +80,17 @@ class barplot(object):
         ## sorted date to iterate through them
         dates = np.sort(self.df[self.time_column].unique())
         for date in dates:
-            
+
             # specified date string for plotly frame id and for printing in plot
             if isinstance(date, np.datetime64):
-                date = pd.to_datetime(str(date)) 
+                date = pd.to_datetime(str(date))
                 try:
                     date_str = date.strftime(format = self.date_format) if self.date_format is not None else str(date)
                 except:
                     raise Exception("Something was wrong setting the date_format, please check the strftime (https://strftime.org/) documentation for date formatting and try again")
-            else: 
+            else:
                 date_str = str(date)
-                    
+
             # filter out by year
             snap_data = self.df[self.df[self.time_column] == date]
 
@@ -110,7 +110,7 @@ class barplot(object):
                             marker_color=snap_data['color'],
                             cliponaxis=False,
                             hoverinfo='all',
-                            hovertemplate = '<extra></extra>', #annoying and obscure, see docs 
+                            hovertemplate = '<extra></extra>', #annoying and obscure, see docs
                             ## (https://community.plotly.com/t/remove-trace-0-next-to-hover/33731)
                             textposition='outside',
                             texttemplate='%{x}<br>%{y:.4s}' if self.orientation == 'vertical' else '%{y}<br>%{x:.4s}',
@@ -124,7 +124,7 @@ class barplot(object):
                         xaxis={
                             'showline': False,
                             'visible': True
-                        } if self.orientation == 'vertical' else 
+                        } if self.orientation == 'vertical' else
                         {
                             'showline': True,
                             'visible': True,
@@ -163,7 +163,7 @@ class barplot(object):
         """
         Internal use
 
-        time_frame1 can be a number that equals one of the entries in the time column 
+        time_frame1 can be a number that equals one of the entries in the time column
         or key values such as 'min' or 'max'
         """
 
@@ -178,9 +178,9 @@ class barplot(object):
         # get top entries
         frame1  = frame1.sort_values(self.value_column, ascending=False).iloc[:self.top_entries,:]
 
-        # return in ascending order so that top bar corresponds to largest value  
-        frame1 = frame1.sort_values(self.value_column, ascending=True) 
-        
+        # return in ascending order so that top bar corresponds to largest value
+        frame1 = frame1.sort_values(self.value_column, ascending=True)
+
         x, y = self.__check_orientation()
 
         # Create figure
@@ -204,7 +204,7 @@ class barplot(object):
                 xaxis={
                     'showline': False,
                     'visible': False
-                } if self.orientation == 'vertical' else 
+                } if self.orientation == 'vertical' else
                 {
                     'showline': True,
                     'visible': True,
@@ -240,7 +240,7 @@ class barplot(object):
         return x, y
 
     def __define_ui(self, time_label: str = None):
-        
+
         self.fig["layout"]["updatemenus"] = [
             {
                 "buttons": [
@@ -287,11 +287,16 @@ class barplot(object):
             "y": 0,
             "steps": [] # empty, gets filled when frames are made
         }
-        
+
 
     def __get_colors(self):
         if (self.item_color == None):
             colors = {item: 'rgb({}, {}, {})'.format(*sample(range(256), 3)) for item in self.df[self.item_column].unique()}
             self.df['color'] = self.df[self.item_column].map(colors)
+        elif (self.item_color != None and len(self.item_color) != self.df[self.item_column].nunique()):
+            for item in self.df[self.item_column].unique():
+                if item not in self.item_color.keys():
+                    self.item_color[item] = 'rgb({}, {}, {})'.format(*sample(range(256), 3))
+            self.df['color'] = self.df[self.item_column].map(self.item_color)
         else:
             self.df=self.df.rename(columns={self.item_color: "color"})
