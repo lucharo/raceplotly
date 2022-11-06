@@ -102,4 +102,4 @@ my_raceplot.plot(
 
 ```
 
-![](https://github.com/lc5415/raceplotly/blob/main/example/color/race_with_color_example.gif)
+![](https://github.com/lc5415/raceplotly/blob/main/example/color/FAO_with_mixed_color_example.gif)
