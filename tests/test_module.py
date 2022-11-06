@@ -6,7 +6,7 @@ import pytest
 def test_plot_horizontal():
     # load data
     data = pd.read_csv(
-        "https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv"
+        "https://raw.githubusercontent.com/lc5415/raceplotly/main/example/dataset/FAOSTAT_data.csv"
     )
 
     # instantiate barplot
@@ -27,7 +27,7 @@ def test_plot_horizontal():
 def test_plot_vertical():
     # load data
     data = pd.read_csv(
-        "https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv"
+        "https://raw.githubusercontent.com/lc5415/raceplotly/main/example/dataset/FAOSTAT_data.csv"
     )
 
     # instantiate barplot
@@ -47,7 +47,7 @@ def test_plot_vertical():
 def test_user_color_input():
     # load data
     data = pd.read_csv(
-        "https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv"
+        "https://raw.githubusercontent.com/lc5415/raceplotly/main/example/dataset/FAOSTAT_data.csv"
     )
 
     # To add specific color to the categories, a new dictionary with rgb values for each category has to be created.
