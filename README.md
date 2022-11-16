@@ -1,6 +1,11 @@
-![Test Python package](https://github.com/lc5415/raceplotly/workflows/Test%20Python%20package/badge.svg)
-[![PyPI version](https://badge.fury.io/py/raceplotly.svg)](https://badge.fury.io/py/raceplotly)
+[![Test Python package](https://github.com/lucharo/raceplotly/actions/workflows/python-package-test.yml/badge.svg)](https://github.com/lucharo/raceplotly/actions/workflows/python-package-test.yml)
+[![PyPI version](https://badge.fury.io/py/raceplotly.svg)](https://badge.fury.io/py/raceplotly) [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/) [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/) [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/) 
+
+
+
 # Making race plots with Plotly!
+
+
 
 ## Motivation
 
