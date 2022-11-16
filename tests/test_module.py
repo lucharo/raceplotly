@@ -3,7 +3,7 @@ from raceplotly.plots import barplot
 
 # load data
 data = pd.read_csv(
-    "https://raw.githubusercontent.com/lc5415/raceplotly/main/example/FAOSTAT_data.csv"
+    "https://raw.githubusercontent.com/lucharo/raceplotly/main/example/dataset/FAOSTAT_data.csv"
 )
 
 
